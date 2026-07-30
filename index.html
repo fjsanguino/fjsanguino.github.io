@@ -4,6 +4,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="light dark" />
+        <meta
+            name="description"
+            content="Javier Sanguino Bautiste is a PhD student at BCAM researching performative prediction, fair machine learning, and spurious correlations."
+        />
+        <link rel="canonical" href="https://fjsanguino.github.io/" />
         <link rel="stylesheet" href="css/pico.min.css" />
         <style>
             .logo {
@@ -40,12 +45,27 @@
             .news-text a:hover {
                 text-decoration: underline;
             }
+            .greeting-line {
+                min-height: 2.2rem;
+                margin-bottom: 0.5rem;
+            }
             #greeting {
-                display: inline-block;
+                display: block;
+                min-width: 8ch;
                 width: 8ch;
+                font-size: 1.5rem;
+                text-align: left;
+                line-height: 1.2;
             }
             .bio {
                 text-align: justify;
+            }
+            .profile-photo {
+                border-radius: 8px;
+                max-width: 100%;
+                display: block;
+                user-select: none;
+                -webkit-user-drag: none;
             }
         </style>
         <title>Javier Sanguino Bautiste</title>
@@ -60,8 +80,8 @@
 
             <div class="grid">
                 <div class="bio">
-                    <p>
-                        <span id="greeting"></span> 
+                    <p class="greeting-line">
+                        <span id="greeting"></span>
                     </p>
                     
                     <p>
@@ -100,9 +120,13 @@
                 </div>
                 <div>
                     <img
-                        src="img/ni.png"
+                        id="profile-photo"
+                        class="profile-photo"
+                        alt="Javier Sanguino Bautiste"
                         width="40%"
-                        style="border-radius: 8px"
+                        draggable="false"
+                        loading="eager"
+                        decoding="async"
                     />
                 </div>
             </div>
@@ -215,7 +239,7 @@
                         "Dissecting Performative Prediction: A Comprehensive Survey"
                     </a>
                     <br />
-                    Thomas Kehrenberg, <b>Francisco Javier Sanguino Bautiste</b>, Jose Lozano, Novi Quadrianto
+                    Thomas Kehrenberg, <b> Javier Sanguino Bautiste</b>, Jose Lozano, Novi Quadrianto
                     <br />
                     <i>
                         Published at ACM Computing Surveys 58, no. 13 (2026): 1-35
@@ -406,6 +430,38 @@
                     setTimeout(typeWriter, typingSpeed);
                 }
             }
+
+            const profilePhoto = document.getElementById("profile-photo");
+            const defaultPhoto = "img/jsanguino.jpg";
+            const alternatePhotos = [
+                "img/6a6b19ed119a4c7e5160c44f.jpg",
+                "img/6a6b19ed119a4c7e5160c451.jpg"
+            ];
+
+            if (profilePhoto) {
+                const showAlternatePhoto = () => {
+                    const randomIndex = Math.floor(Math.random() * alternatePhotos.length);
+                    profilePhoto.src = alternatePhotos[randomIndex];
+                };
+
+                const resetPhoto = () => {
+                    profilePhoto.src = defaultPhoto;
+                };
+
+                profilePhoto.addEventListener("contextmenu", (event) => event.preventDefault());
+                profilePhoto.addEventListener("dragstart", (event) => event.preventDefault());
+                profilePhoto.addEventListener("mousedown", (event) => {
+                    if (event.button === 2) {
+                        event.preventDefault();
+                    }
+                });
+                profilePhoto.addEventListener("mouseenter", showAlternatePhoto);
+                profilePhoto.addEventListener("mouseleave", resetPhoto);
+                profilePhoto.addEventListener("focus", showAlternatePhoto);
+                profilePhoto.addEventListener("blur", resetPhoto);
+                profilePhoto.src = defaultPhoto;
+            }
+
             typeWriter();
         </script>
     </body>

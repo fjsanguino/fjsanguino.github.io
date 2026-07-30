@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /img/jsanguino.png
+
+Sitemap: https://fjsanguino.github.io/sitemap.xml
